@@ -4,7 +4,7 @@ class HistoricalEvent extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      edit: false,
+      editClicked: false,
       date: '',
       description: '',
       lang: '',
@@ -18,7 +18,7 @@ class HistoricalEvent extends React.Component {
 
   handleEditClick() {
     this.setState({
-      edit: true,
+      editClicked: true,
     });
   }
 
@@ -45,10 +45,10 @@ class HistoricalEvent extends React.Component {
   }
 
   render() {
-    const { edit } = this.state;
+    const { editClicked } = this.state;
     const { event } = this.props;
     const categories = event.category2 ? (`${event.category1} / ${event.category2}`) : event.category1;
-    const clickHandler = edit
+    const clickHandler = editClicked
       ? (
         <button type="button" onClick={this.handleSaveClick}>
           Save
@@ -61,27 +61,27 @@ class HistoricalEvent extends React.Component {
       );
     return (
       <tr>
-        <td contentEditable={edit} onInput={(e) => { this.handleInputChange(e.currentTarget.textContent, 'date'); }}>
+        <td contentEditable={editClicked} onInput={(e) => { this.handleInputChange(e.currentTarget.textContent, 'date'); }}>
           <div style={{ width: '100px' }}>
             {event.date}
           </div>
         </td>
-        <td contentEditable={edit} onInput={(e) => { this.handleInputChange(e.currentTarget.textContent, 'description'); }}>
+        <td contentEditable={editClicked} onInput={(e) => { this.handleInputChange(e.currentTarget.textContent, 'description'); }}>
           <div style={{ width: '700px' }}>
             {event.description}
           </div>
         </td>
-        <td contentEditable={edit} onInput={(e) => { this.handleInputChange(e.currentTarget.textContent, 'lang'); }}>
+        <td contentEditable={editClicked} onInput={(e) => { this.handleInputChange(e.currentTarget.textContent, 'lang'); }}>
           <div style={{ width: '50px' }}>
             {event.lang}
           </div>
         </td>
-        <td contentEditable={edit} onInput={(e) => { this.handleInputChange(e.currentTarget.textContent, 'categories'); }}>
+        <td contentEditable={editClicked} onInput={(e) => { this.handleInputChange(e.currentTarget.textContent, 'categories'); }}>
           <div style={{ width: '200px' }}>
             {categories}
           </div>
         </td>
-        <td contentEditable={edit} onInput={(e) => { this.handleInputChange(e.currentTarget.textContent, 'granularity'); }}>
+        <td contentEditable={editClicked} onInput={(e) => { this.handleInputChange(e.currentTarget.textContent, 'granularity'); }}>
           <div style={{ width: '50px' }}>
             {event.granularity}
           </div>
