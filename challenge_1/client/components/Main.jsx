@@ -1,4 +1,3 @@
-/* eslint-disable class-methods-use-this */
 import React from 'react';
 import SearchEvents from './SearchEvents.jsx';
 import HistoricalList from './HistoricalList.jsx';
