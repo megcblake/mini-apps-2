@@ -9,6 +9,7 @@ class App extends React.Component {
       rolls: [],
     };
     this.handleFrame = this.handleFrame.bind(this);
+    this.resetGame = this.resetGame.bind(this);
   }
 
   handleFrame(values) {
@@ -17,12 +18,22 @@ class App extends React.Component {
     }));
   }
 
+  resetGame(e) {
+    e.preventDefault();
+    this.setState({
+      rolls: [],
+    });
+  }
+
   render() {
     const { rolls } = this.state;
     return (
       <div className="bowling-main">
         <SelectPins handleFrame={this.handleFrame} />
         <ScoreCard rolls={rolls} />
+        <button type="button" onClick={this.resetGame}>
+          Reset Game
+        </button>
       </div>
     );
   }

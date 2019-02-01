@@ -9,23 +9,26 @@ const ScoreCard = ({ rolls }) => {
       if (frameScore < 10) {
         scores.push(frameScore);
       } else if (rolls[i] === 10) { // check for strike
-        const sub1Throw = rolls[i + 1] !== null ? rolls[i + 1] : rolls[i + 2];
-        let sub2Throw = null;
-        if (rolls[i + 1] !== null) {
-          sub2Throw = rolls[i + 2];
-        } else if (rolls[i + 3] !== null) {
-          sub2Throw = rolls[i + 3];
+        // check first subsequent roll for null if another strike thrown
+        const sub1Roll = rolls[i + 1] !== null ? rolls[i + 1] : rolls[i + 2];
+        // check second subsequent roll
+        let sub2Roll = null;
+        if (rolls[i + 1] !== null) { // if roll not a strike
+          sub2Roll = rolls[i + 2];
+        } else if (rolls[i + 3] !== null) { // if roll not a strike
+          sub2Roll = rolls[i + 3];
         } else {
-          sub2Throw = rolls[i + 4];
+          sub2Roll = rolls[i + 4];
         }
-        if ((sub1Throw && sub2Throw) || sub1Throw === 0 || sub1Throw === 0) {
-          frameScore += sub1Throw + sub2Throw;
+        // account for zero as an allowed falsey value
+        if ((sub1Roll && sub2Roll) || sub1Roll === 0 || sub1Roll === 0) {
+          frameScore += sub1Roll + sub2Roll;
           scores.push(frameScore);
         }
       } else { // check for spare
-        const subThrow = rolls[i + 1] !== null ? rolls[i + 1] : rolls[i + 2];
-        if (subThrow || subThrow === 0) {
-          frameScore += subThrow;
+        const subRoll = rolls[i + 1] !== null ? rolls[i + 1] : rolls[i + 2];
+        if (subRoll || subRoll === 0) {
+          frameScore += subRoll;
           scores.push(frameScore);
         }
       }
@@ -33,7 +36,7 @@ const ScoreCard = ({ rolls }) => {
   });
   const scoreSums = scores.map((score, i) => scores.slice(0, i + 1).reduce((a, b) => a + b));
   const scoreDisplay = scoreSums.map((sum, i) => (
-    <ScoreRow sum={sum} key={i} />
+    <ScoreRow sum={sum} key={i} i={i} rolls={rolls} />
   ));
   return (
     <div className="scores">
@@ -61,6 +64,6 @@ const ScoreCard = ({ rolls }) => {
       </table>
     </div>
   );
-}
+};
 
 export default ScoreCard;
